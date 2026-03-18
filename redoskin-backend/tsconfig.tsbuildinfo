@@ -1,0 +1,10 @@
+{
+    "root": [
+        "./dist/server.d.ts",
+        "./dist/swaggerdocs.d.ts",
+        "./src/server.ts",
+        "./src/swaggerdocs.ts"
+    ],
+    "errors": true,
+    "version": "5.9.3"
+}
