@@ -1,20 +1,16 @@
 import 'dotenv/config';
 import express, { type Request, type Response } from 'express';
-import swaggerUi from 'swagger-ui-express';
-import { spec } from './swaggerDocs.ts';
+// import swaggerUi from 'swagger-ui-express';
+// import { spec } from './swaggerDocs.ts';
 import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
 import expressRateLimit from 'express-rate-limit';
 
+import authRouter from './features/auth/api/auth.routes.ts';
+
 const app = express();
 const port = process.env.PORT;
-
-app.use(
-  helmet({
-    xPoweredBy: false,
-  }),
-);
 
 // Configuration
 app.use(
@@ -44,11 +40,10 @@ app.use(
 );
 
 // Api docs route
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(spec));
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(spec));
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World');
-});
+// Route api
+app.use('/api/v1/auth', authRouter);
 
 //Api fallback
 app.use('/', (req: Request, res: Response) => {
