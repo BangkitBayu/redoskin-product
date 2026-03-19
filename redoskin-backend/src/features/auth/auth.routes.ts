@@ -1,9 +1,11 @@
-import express from 'express';
+import express, { type Request, type Response } from 'express';
 import registerController from './register/index.ts';
 
 const app = express();
 const router = app.router;
 
-router.post('/register', registerController.handle);
+router.post('/register', (req: Request, res: Response) => {
+  return registerController.handle(req, res);
+});
 
 export default router;

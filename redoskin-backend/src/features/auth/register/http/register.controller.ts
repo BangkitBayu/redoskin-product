@@ -28,10 +28,23 @@ export class RegisterController {
     }
 
     const data: User = payload.data;
+
     try {
-      await this.createNewUser.execute(data);
-    } catch (error) {
-      return res.status();
+      const user = await this.createNewUser.execute(data);
+
+      return res.status(201).json({
+        status: 'SUCCESS',
+        message: 'Register success',
+        data: {
+          user,
+        },
+      });
+    } catch (error: unknown) {
+      const errorMsg = error instanceof Error ? error.message : '';
+      return res.status(409).json({
+        status: 'ERROR',
+        message: errorMsg,
+      });
     }
   }
 }

@@ -11,7 +11,7 @@ export const userSchema = z.object({
   password: z
     .string('Password must be filled')
     .min(8, 'Password must have min length 8'),
-  confirm_password: z.string('Confirm password must be filled'),
+  confirm_password: z.string('Confirm password must be filled').optional(),
 });
 
 export type User = z.infer<typeof userSchema>;

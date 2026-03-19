@@ -7,7 +7,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import expressRateLimit from 'express-rate-limit';
 
-import authRouter from './features/auth/api/auth.routes.ts';
+import authRouter from './features/auth/auth.routes.ts';
 
 const app = express();
 const port = process.env.PORT;
