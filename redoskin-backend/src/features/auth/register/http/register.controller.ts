@@ -2,6 +2,7 @@ import type { User } from '../../../../shared/baseSchemas/user.schema.ts';
 import { registerSchema } from '../../auth.schema.ts';
 import { type Request, type Response } from 'express';
 import { CreateNewUser } from '../services/CreateNewUser.ts';
+import errorMessage from '../../../../shared/utils/errorMessage.ts';
 
 export class RegisterController {
   constructor(private createNewUser: CreateNewUser) {}
@@ -12,7 +13,7 @@ export class RegisterController {
     if (!payload.success) {
       return res.status(422).json({
         status: 'ERROR',
-        message: 'Fields error',
+        message: 'Invalid field',
         errors: payload.error.flatten(),
       });
     }
@@ -20,7 +21,7 @@ export class RegisterController {
     if (payload.data.confirm_password !== payload.data.password) {
       return res.status(403).json({
         status: 'ERROR',
-        message: 'Field error',
+        message: 'Invalid field',
         errors: {
           confirm_password: ['Confirm password must match with password'],
         },
@@ -40,10 +41,9 @@ export class RegisterController {
         },
       });
     } catch (error: unknown) {
-      const errorMsg = error instanceof Error ? error.message : '';
       return res.status(409).json({
         status: 'ERROR',
-        message: errorMsg,
+        message: errorMessage(error),
       });
     }
   }
