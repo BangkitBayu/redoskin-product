@@ -1,11 +1,11 @@
 import type { User } from '../../../../shared/baseSchemas/user.schema.ts';
 import { registerSchema } from '../../auth.schema.ts';
 import { type Request, type Response } from 'express';
-import { CreateNewUser } from '../services/CreateNewUser.ts';
+import { RegisterService } from '../services/register.service.ts';
 import errorMessage from '../../../../shared/utils/errorMessage.ts';
 
 export class RegisterController {
-  constructor(private createNewUser: CreateNewUser) {}
+  constructor(private registerService: RegisterService) {}
 
   async handle(req: Request, res: Response) {
     const payload = registerSchema.safeParse(req.body);
@@ -31,7 +31,7 @@ export class RegisterController {
     const data: User = payload.data;
 
     try {
-      const user = await this.createNewUser.execute(data);
+      const user = await this.registerService.execute(data);
 
       return res.status(201).json({
         status: 'SUCCESS',

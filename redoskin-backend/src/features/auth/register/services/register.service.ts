@@ -2,7 +2,7 @@ import type { User } from '../../../../shared/baseSchemas/user.schema.ts';
 import type { RegisterRepository } from '../repositories/register.repository.ts';
 import { hashPassword } from '../utils/passwordHasher.ts';
 
-export class CreateNewUser {
+export class RegisterService {
   constructor(private registerRepository: RegisterRepository) {}
   async execute(data: User) {
     const existsUser = await this.registerRepository.findByEmail(data.email);
